@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Eventos</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript">
+      function deletarEvento(){
+        var confirmed = confirm("Confirma exclusão do evento?");
+        if (confirmed) {
+          fetch('/eventos', { method: 'DELETE' }).then(window.location.href = "/eventos");
+        }
+
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Eventos</h1>
+    <p>
+      <a href="/eventos">Voltar</a> |
+      <a href="/eventos/editar/<%= evento.id %>">Editar</a>
+    </p>
+    <p>
+      <strong>Nome:</strong> <%= evento.nome %>
+    </p>
+    <p>
+    </p>
+    <p>
+      <form action="/eventos/deletar/<%= evento.id %>" method="post">
+        <input type="submit" value="Excluir" />
+      </form>
+    </p>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Eventos</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Eventos</h1>
+    <p><a href="/eventos/novo">Novo</a></p>
+
+    <ul>
+      <% for(var i = 0; i < eventos.length; i++) { %>
+        <li>
+          <a href="/eventos/<%= eventos[i].id %>"><%= eventos[i].nome %></a> 
+        </li>
+      <% } %>  
+    </ul>
+  </body>
+</html>

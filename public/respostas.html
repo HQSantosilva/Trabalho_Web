@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Page Title</title>
+    <script type="text/javascript">
+
+        function minha_funcao() {
+            alert('Hello World!');
+            return false;
+        }
+
+        function exibirMensagem() {
+            console.log("Retorno da mensagem");
+            return true;
+        }
+
+        function operacoes() {
+            var a = 1;
+            var b = 2;
+            var c = "Isso é um texto: ";
+            var d;
+
+            console.log(a + b);
+            console.log(c + a + b);
+            console.log(d);
+
+            if (d == undefined) {
+                console.log("d não foi inicializado");
+            }
+        }
+
+        class Carro {
+
+            constructor() {
+                this.placa = "";
+            }
+
+            set setPlaca(placa) {
+                this.placa = placa;
+            }
+
+            get getPlaca() {
+                return this.placa;
+            }
+
+        }
+
+        function criarCarro() {
+            var carro = new Carro();
+            carro.placa = 'AAA1234';
+            alert(carro.placa)
+        }
+
+
+        function listarFrutas() {
+            var frutas = ['Uva', 'Pera', 'Maça'];
+
+            frutas.forEach(function (fruta) {
+                alert(fruta);
+            });
+
+            frutas.forEach((fruta) => {
+                alert(fruta);
+            });
+        }
+
+        function validar() {
+            var nome = document.getElementById('nome');
+            if (nome.value == "") {
+                alert('Você deve informar um nome.');
+                nome.focus();
+            } else {
+                alert('Validação OK');
+            }
+        }
+
+        function fazerOperacaoMatematica(operacao) {
+            var a = parseInt(document.getElementById('valorA').value);
+            var b = parseInt(document.getElementById('valorB').value);
+
+            var resultado;
+
+            if (operacao == '+') {
+                resultado = a + b;
+            } else if (operacao == '-') {
+                resultado = a - b;
+            } else if (operacao == '/') {
+                resultado = a / b;
+            } else if (operacao == '*') {
+                resultado = a * b;
+            }
+
+            document.getElementById('resultado').value = resultado;
+        }
+
+        var contador = 0;
+
+        function incrementarContador() {
+            contador += 1;
+            console.log('Contador: ' + contador);
+        }
+
+        function testAsync() {
+
+            for (var i = 0; i < 10; i++) {
+                setTimeout(incrementarContador, 1000);
+            }
+                        
+            console.log("Ao término da função contador é: " + contador);
+
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <h1>Título</h1>
+    <p>Ao clicar <a href="#" onclick="return minha_funcao();">neste link</a> você receberá uma mensagem.</p>
+    <p>Ao clicar <a href="#" onclick="return exibirMensagem();">neste link</a> você verá uma mensagem de log no console.
+    </p>
+    <p>Ao clicar <a href="#" onclick="return operacoes();">neste link</a> você verá logs das operações descritas.</p>
+    <p>Ao clicar <a href="#" onclick="return criarCarro();">neste link</a> você criará um carro e manipulará sua placa.
+    </p>
+    <p>Ao clicar <a href="#" onclick="return listarFrutas();">neste link</a> você receberá um alerta por fruta.</p>
+
+    <hr />
+
+    <h2>Calculadora</h2>
+
+    <form name="calculadora">
+        <div>
+            <label>Valor A:</label>
+            <input type="text" id="valorA" name="valorA" />
+        </div>
+        <div>
+            <label>Valor B:</label>
+            <input type="text" id="valorB" name="valorB" />
+        </div>
+        <div>
+            <label>Resultado:</label>
+            <input type="text" id="resultado" name="resultado" />
+        </div>
+        <div>
+            <button type="button" onclick="return fazerOperacaoMatematica('+');">+</button>
+            <button type="button" onclick="return fazerOperacaoMatematica('-');">-</button>
+            <button type="button" onclick="return fazerOperacaoMatematica('/');">/</button>
+            <button type="button" onclick="return fazerOperacaoMatematica('*');">*</button>
+        </div>
+    </form>
+
+    <hr />
+
+    <h2>Validação</h2>
+
+    <form name="cadastro">
+        <div>
+            <label>Nome:</label>
+            <input type="text" id="nome" name="nome" />
+        </div>
+        <div>
+            <button type="button" onclick="return validar();">Validar</button>
+        </div>
+    </form>
+
+    <hr />
+
+    <h2>Test Async</h2>
+    <p>Ao clicar <a href="#" onclick="return testAsync();">neste link</a> você inciará o teste assincrono.</p>
+
+</body>
+
+</html>

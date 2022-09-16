@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Eventos</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1>
+    Editar evento
+  </h1>
+  <p>
+    <a href="/eventos">Voltar</a>
+  </p>
+<% if (typeof(errors) !="undefined") { %>
+    <div>
+      Errors:
+      <ul>
+        <% for(var i=0; i < errors.length; i++) { %>
+          <li>
+            <%= errors[i] %>
+          </li>
+          <% } %>
+      </ul>
+    </div>
+    <% } %>
+
+  <form action="/eventos/<%= evento.id %>" method="POST">
+    <input type="hidden" id="id" name="id" value="<%= evento.id %>" /><br>
+    <p>
+      <label for="nome">Nome do evento:</label><br>
+      <input type="text" id="nome" name="nome" value="<%= evento.nome %>" /><br>
+    </p>
+
+    <input type="submit" value="Submeter">
+  </form>
+</body>
+
+</html>
