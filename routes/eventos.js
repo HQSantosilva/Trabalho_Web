@@ -93,4 +93,54 @@ router.get('/editar/:id', function (req, res, next) {
 
 });
 
+router.get('/main/:id', function (req, res, next) {
+
+  db.GetEventoById(req.params.id, (err, data) => {
+    if (err) next(err)
+    else if (!data) res.status(404).send('Evento não encontrado.');
+    else res.render('eventos/main', { evento: data });
+  });
+
+});
+
+router.get('/compra/:id', function (req, res, next) {
+
+  db.GetEventoById(req.params.id, (err, data) => {
+    if (err) next(err)
+    else if (!data) res.status(404).send('Evento não encontrado.');
+    else res.render('eventos/main', { evento: data });
+  });
+
+});
+
+router.get('/estoque/:id', function (req, res, next) {
+
+  db.GetEventoById(req.params.id, (err, data) => {
+    if (err) next(err)
+    else if (!data) res.status(404).send('Evento não encontrado.');
+    else res.render('eventos/main', { evento: data });
+  });
+
+});
+
+router.get('/produto/:id', function (req, res, next) {
+
+  db.GetEventoById(req.params.id, (err, data) => {
+    if (err) next(err)
+    else if (!data) res.status(404).send('Evento não encontrado.');
+    else res.render('eventos/main', { evento: data });
+  });
+
+});
+
+router.get('/reserva/:id', function (req, res, next) {
+
+  db.GetEventoById(req.params.id, (err, data) => {
+    if (err) next(err)
+    else if (!data) res.status(404).send('Evento não encontrado.');
+    else res.render('eventos/main', { evento: data });
+  });
+
+});
+
 module.exports = router;
