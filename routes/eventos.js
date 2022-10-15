@@ -5,7 +5,6 @@ var DBConn = require('../db-conn');
 var db = new DBConn();
 
 
-/* GET home de eventos. */
 router.get('/', function (req, res, next) {
 
   db.findAllEventos((err, data) => {
@@ -15,7 +14,6 @@ router.get('/', function (req, res, next) {
 
 });
 
-/* GET Novo evento */
 router.get('/novo', function (req, res, next) {
   res.render('eventos/novo');
 });
@@ -72,7 +70,6 @@ router.post('/deletar/:id', function (req, res, next) {
 
 });
 
-/* GET home de eventos. */
 router.get('/:id', function (req, res, next) {
 
   db.GetEventoById(req.params.id, (err, data) => {
@@ -94,46 +91,6 @@ router.get('/editar/:id', function (req, res, next) {
 });
 
 router.get('/main/:id', function (req, res, next) {
-
-  db.GetEventoById(req.params.id, (err, data) => {
-    if (err) next(err)
-    else if (!data) res.status(404).send('Evento não encontrado.');
-    else res.render('eventos/main', { evento: data });
-  });
-
-});
-
-router.get('/compra/:id', function (req, res, next) {
-
-  db.GetEventoById(req.params.id, (err, data) => {
-    if (err) next(err)
-    else if (!data) res.status(404).send('Evento não encontrado.');
-    else res.render('eventos/main', { evento: data });
-  });
-
-});
-
-router.get('/estoque/:id', function (req, res, next) {
-
-  db.GetEventoById(req.params.id, (err, data) => {
-    if (err) next(err)
-    else if (!data) res.status(404).send('Evento não encontrado.');
-    else res.render('eventos/main', { evento: data });
-  });
-
-});
-
-router.get('/produto/:id', function (req, res, next) {
-
-  db.GetEventoById(req.params.id, (err, data) => {
-    if (err) next(err)
-    else if (!data) res.status(404).send('Evento não encontrado.');
-    else res.render('eventos/main', { evento: data });
-  });
-
-});
-
-router.get('/reserva/:id', function (req, res, next) {
 
   db.GetEventoById(req.params.id, (err, data) => {
     if (err) next(err)
