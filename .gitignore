@@ -35,3 +35,6 @@ bower_components
 # node-waf configuration
 /.vscode
 /node_modules
+
+# sqlite databases
+db/*.db

@@ -7,11 +7,13 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-// instancia rota de eventos
-var eventosRouter = require('./routes/eventos');
 
-// instancia conexão com banco de dados
-var DBConn = require('./db-conn');
+var produtosRouter = require('./routes/produtos');
+
+// Conexão com o banco
+var DBConn = require('./db-conn.js');
+var db = new DBConn();
+db.createTables();
 
 var app = express();
 
@@ -28,12 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-// declara caminho/uri da rota de eventos
-app.use('/eventos', eventosRouter);
-
-// inicializa banco de dados
-var db =  new DBConn();
-db.createTables();
+// Importa o rota produtos
+app.use('/produtos', produtosRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

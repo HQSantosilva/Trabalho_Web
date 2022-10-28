@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>produtos</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript">
+      function deletarProduto(){
+        var confirmed = confirm("Confirma exclusão do produto?");
+        if (confirmed) {
+          fetch('/produtos', { method: 'DELETE' }).then(window.location.href = "/produtos");
+        }
+
+      }
+    </script>
+  </head>
+  <body>
+    <div class="todosprodutos">
+    <h1 class="titulo">Produtos</h1>
+    <p>
+      <a href="/produtos">Voltar</a> |
+      <a href="/produtos/editar/<%= produto.id %>">Editar</a>
+    </p>
+    <p>
+      <strong>Descrição:</strong> <%= produto.descricao %>
+    </p>
+    <p>
+      <strong>Preço:</strong> <%= produto.preco %>
+    </p>
+    <p>
+      <strong>Validade:</strong> <%= produto.validade %>
+    </p>
+    <p>
+      <form action="/produtos/deletar/<%= produto.id %>" method="post">
+        <input type="submit" value="Excluir" />
+      </form>
+    </p>
+  </div>
+  </body>
+</html>
