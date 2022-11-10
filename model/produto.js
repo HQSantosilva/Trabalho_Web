@@ -34,11 +34,11 @@ class Produto {
     }    
 
     static buscarTodos(callback) {
-        return dbConn.db.all('SELECT * FROM produtos', callback);
+        return dbConn.db.all('SELECT * FROM PRODUTO', callback);
     }
 
     static buscarPeloId(id, callback) {
-        return dbConn.db.get('SELECT * FROM produtos WHERE id = (?)', id, callback);
+        return dbConn.db.get('SELECT * FROM PRODUTO WHERE id = (?)', id, callback);
     }
 
     salvar(callback) {
@@ -50,7 +50,7 @@ class Produto {
     }
 
     atualizar(callback) {
-        var sql = `UPDATE produtos 
+        var sql = `UPDATE PRODUTO 
             SET descricao = (?),
                 preco = (?),
                 validade = (?)
@@ -61,7 +61,7 @@ class Produto {
     } 
 
     criar(callback) {
-        var sql = `INSERT INTO produtos (descricao, validade, preco)
+        var sql = `INSERT INTO PRODUTO (descricao, validade, preco)
         VALUES ((?),(?),(?))`;
 
         var params = [this.nome];
@@ -70,7 +70,7 @@ class Produto {
 
 
     excluir(callback) {
-        var sql = `DELETE FROM produtos
+        var sql = `DELETE FROM PRODUTO
         WHERE ID = (?)`;
 
         return dbConn.db.run(sql, this.id, callback);

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Eventos</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <div class="todosprodutos">
+  <h1>Novo Produto</h1>
+  <p>
+    <a href="/produtos">Voltar</a>
+  </p>
+  <% if (typeof(errors) !="undefined" ) { %>
+    <div style="color: red; border: 1px solid red;">
+      <ul>
+        <% for(var i=0; i < errors.length; i++) { %>
+          <li>
+            <%= errors[i] %>
+          </li>
+          <% } %>
+      </ul>
+    </div>
+    <% } %>
+
+  <form action="/produtos" method="post">
+    <p>
+      <label for="descricao">Descricao do Produto:</label><br>
+      <input type="text" id="descricao" name="descricao"><br>
+    </p>
+    <p>
+      <label for="preco">Preço do Produto:</label><br>
+      <input type="flout" id="preco" name="preco"><br>
+    </p>
+    <p>
+      <label for="validade">Validade do Produto:</label><br>
+      <input type="date" id="validade" name="validade"><br>
+    </p>
+    <input type="submit" value="Submeter">
+  </form>
+</div>
+</body>
+
+</html>
