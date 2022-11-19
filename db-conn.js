@@ -21,8 +21,8 @@ class DBConn {
             QUANTIDADE INTEGER NULL
         );
         CREATE TABLE IF NOT EXISTS MOVIMENTACAO (
-            ID INTEGER NOT NULL PRIMARY KEY,
-            IDPRODUTO INTEGER NOT NULL REFERENCES PRODUTO(ID),
+            ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            IDESTOQUE INTEGER NOT NULL REFERENCES ESTOQUE(ID),
             QUANTIDADE INTEGER NOT NULL,
             ENTRADAOUSAIDA BIT NOT NULL
         );
@@ -44,14 +44,14 @@ class DBConn {
         return this.db.all(sql, [descricao + '%'], callback);
     }
 
-    createProduto(descricao,preco, validade, callback) {
-        var sql = 'INSERT INTO PRODUTO (descricao,preco,validade) VALUES ((?),(?),(?))';
-        return this.db.run(sql, [descricao,preco,validade], callback);
+    createProduto(descricao,preco, callback) {
+        var sql = 'INSERT INTO PRODUTO (descricao,preco) VALUES ((?),(?))';
+        return this.db.run(sql, [descricao,preco], callback);
     }
 
-    updateProdutos(id, descricao, preco,validade, callback) {
-        var sql = 'UPDATE PRODUTO SET descricao = (?),preco = (?),validade = (?) WHERE ID = (?)';
-        return this.db.run(sql, [descricao,preco,validade, id], callback);
+    updateProdutos(id, descricao, preco, callback) {
+        var sql = 'UPDATE PRODUTO SET descricao = (?),preco = (?) WHERE ID = (?)';
+        return this.db.run(sql, [descricao,preco, id], callback);
     }
 
     getProdutoById(id, callback) {
@@ -75,12 +75,12 @@ class DBConn {
     }
 
     createEstoque(produto,quantidade, data) {
-        var sql = 'INSERT INTO ESTOQUE (IDPRODUTO, QUANTIDADE, DATALOTE) VALUES ((?),(?),(?),(?))';
+        var sql = 'INSERT INTO ESTOQUE (IDPRODUTO, QUANTIDADE) VALUES ((?),(?),(?),(?))';
         return this.db.run(sql, [produto,quantidade, data], callback);
     }
 
     updateEstoque(produto,quantidade, data) {
-        var sql = 'UPDATE ESTOQUE SET IDPRODUTO = (?),QUANTIDADE = (?), DATALOTE = (?) WHERE ID = (?)';
+        var sql = 'UPDATE ESTOQUE SET IDPRODUTO = (?),QUANTIDADE = (?) WHERE ID = (?)';
         return this.db.run(sql, [produto,quantidade,  data], callback);
     }
 
@@ -94,8 +94,15 @@ class DBConn {
         return this.db.run(sql, id, callback);
     }    
 
+    findAllMovimentacoes(callback) {
+        var sql = 'SELECT * FROM MOVIMENTACAO';
+        return this.db.all(sql, [], callback);
+    }
 
-
+    createMovimentacao(estoque,quantidade, entradasaida) {
+        var sql = 'INSERT INTO MOVIMENTACAO (IDPRODUTO,QUANTIDADE,ENTRADAOUSAIDA) VALUES ((?),(?),(?),(?))';
+        return this.db.run(sql, [estoque,quantidade, entradasaida], callback);
+    }
 }
 
 module.exports = DBConn

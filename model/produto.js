@@ -9,7 +9,6 @@ class Produto {
     constructor() {
         this.descricao = '';
         this.erros = [];
-        this.validade = DATE;
         this.preco = 0;
  
     }
@@ -17,11 +16,7 @@ class Produto {
     carregar(json){        
         this.id = json.id;
         this.descricao = json.descricao;
-        this.validade = json.validade;
-        this.preco = json.preco;
-        //this.totalPago = json.totalPago;
-        //this.totalRecebido = json.totalRecebido;
-        //this.totalEmAberto = json.totalEmAberto;       
+        this.preco = json.preco;  
     }
 
     validar() {
@@ -52,17 +47,16 @@ class Produto {
     atualizar(callback) {
         var sql = `UPDATE PRODUTO 
             SET descricao = (?),
-                preco = (?),
-                validade = (?)
+                preco = (?)
             WHERE ID = (?)`;
 
-        var params = [this.descricao,this.validade,this.preco, this.id];
+        var params = [this.descricao,this.preco, this.id];
         return dbConn.db.run(sql, params, callback);
     } 
 
     criar(callback) {
-        var sql = `INSERT INTO PRODUTO (descricao, validade, preco)
-        VALUES ((?),(?),(?))`;
+        var sql = `INSERT INTO PRODUTO (descricao,  preco)
+        VALUES ((?),(?))`;
 
         var params = [this.nome];
         return dbConn.db.run(sql, params, callback);

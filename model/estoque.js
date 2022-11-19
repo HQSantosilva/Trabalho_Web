@@ -3,9 +3,8 @@ var dbConn = new DBConn();
 
 class Estoque {
     constructor() {
-        this.produto = '';
+        this.produto = 0;
         this.erros = [];
-        this.data = DATE;
         this.quantidade = 0;
     }
 
@@ -13,7 +12,6 @@ class Estoque {
         this.id = json.id;
         this.produto = json.produto
         this.quantidade = json.quantidade;
-        this.data = json.validade; 
     }
 
     validar() {
@@ -43,18 +41,17 @@ class Estoque {
     atualizar(callback) {
         var sql = `UPDATE ESTOQUE
         SET IDPRODUTO = (?),
-        QUANTIDADE = (?),
-         DATALOTE = (?)
+        QUANTIDADE = (?)
          WHERE ID = (?)`;
 
-        var params = [this.produto,this.quantidade,this.data, this.id];
+        var params = [this.produto,this.quantidade, this.id];
         return dbConn.db.run(sql, params, callback);
     } 
 
     criar(callback) {
-        var sql = `INSERT INTO ESTOQUE (IDPRODUTO, QUANTIDADE, DATALOTE) VALUES ((?),(?),(?),(?))`;
+        var sql = `INSERT INTO ESTOQUE (IDPRODUTO, QUANTIDADE) VALUES ((?),(?),(?))`;
 
-        var params = [this.produto,this.quantidade,this.data, this.id];
+        var params = [this.produto,this.quantidade, this.id];
         return dbConn.db.run(sql, params, callback);
     }    
 
@@ -63,8 +60,11 @@ class Estoque {
         var sql = `DELETE FROM ESTOQUE  WHERE ID = (?)`;
 
         return dbConn.db.run(sql, this.id, callback);
-    }      
-
+    }  
+    
+    getQuantidadeEstoque(idestoque){
+    return dbConn.db.get('SELECT QUANTIDADE FROM ESTOQUE WHERE ID = (?)',idestoque, callback.quantidade);    
+    }
 }
 
-module.exports = Produto
+module.exports = Estoque
