@@ -65,6 +65,12 @@ class Estoque {
     getQuantidadeEstoque(idestoque){
     return dbConn.db.get('SELECT QUANTIDADE FROM ESTOQUE WHERE ID = (?)',idestoque, callback.quantidade);    
     }
+
+    atualizaEstoque(id, quantidade)
+    {
+        var sql = `UPDATE ESTOQUE SET QUANTIDADE = (?)  WHERE ID = (?)`;
+        return dbConn.db.run(sql, quantidade,id, callback)
+    }
 }
 
 module.exports = Estoque

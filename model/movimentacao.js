@@ -19,10 +19,10 @@ class Movimentacao {
 
     validar() {
         this.erros = [];
-        quantidadeestoque = Estoque.getQuantidadeEstoque;
+        quantidadeestoque = Estoque.getQuantidadeEstoque(this.estoque);
         if (quantidadeestoque -this.quantidade < 0)
             this.erros.push('A quantidade a ser removida do estoque não pode ser menor que 0');
-
+             
         return this.erros.length == 0;
     }    
 
@@ -40,6 +40,7 @@ class Movimentacao {
 
     criar(callback) {
         valormovimentacao = 0;
+        quantidadeestoque = Estoque.getQuantidadeEstoque(this.estoque)
         switch(this.entradasaida){
             case true:
                 valormovimentacao = 1;
@@ -48,8 +49,12 @@ class Movimentacao {
                 valormovimentacao = 0;
         }
         var sql = `INSERT INTO MOVIMENTACAO (IDESTOQUE, QUANTIDADE,ENTRADAOUSAIDA) VALUES ((?),(?),(?))`;
-
         var params = [this.produto,this.quantidade,valormovimentacao, this.id];
+        if (valormovimentacao = 1) 
+            Estoque.atualizaEstoque(this.estoque,quantidadeestoque + this.quantidade)   
+        else
+            Estoque.atualizaEstoque(this.estoque,quantidadeestoque - this.quantidade) 
+
         return dbConn.db.run(sql, params, callback);
     }     
 
