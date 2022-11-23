@@ -9,13 +9,13 @@ var db = new DBConn();
 router.get('/', function (req, res, next) {
   db.findAllEstoquesDados( req.query.id, (err, data) => {
     if (err) next(err)
-    else res.render('estoques/index', { estoque: data });
+    else res.render('estoque/index', { estoque: data });
   });
 });
 
 //Chamando novo estoque
 router.get('/novo', function (req, res, next) {
-  res.render('estoques/novo');
+  res.render('estoque/novo');
 });
 
 
@@ -35,12 +35,12 @@ router.post('/', function (req, res, next) {
       if (err) next(err)
       else {
         db.getLastInsertRowId((err, data) => {
-          res.redirect('/estoques/' + data['last_insert_rowid()'],);
+          res.redirect('/estoque/' + data['last_insert_rowid()'],);
         });
       }
     });
   } else {
-    res.render('estoques/novo', { "errors": errors });
+    res.render('estoque/novo', { "errors": errors });
   }
 });
 
@@ -58,7 +58,7 @@ router.post('/:id', function (req, res, next) {
     db.updateestoques(req.body.id,req.body.descricao,req.body.preco,req.body.validade, (err, data) => {
       if (err) next(err)
       else {
-        res.redirect('/estoques/' + req.body.id);
+        res.redirect('/estoque/' + req.body.id);
       }
     });
   } else {
@@ -67,14 +67,14 @@ router.post('/:id', function (req, res, next) {
     estoque.preco = req.body.preco;
     estoque.validade = req.body.validade;
     
-    res.render('estoques/editar', { "estoque": estoque, "errors": errors });
+    res.render('estoque/editar', { "estoque": estoque, "errors": errors });
   }
 });
 router.post('/deletar/:id', function (req, res, next) {
   db.deleteestoques(req.params.id, (err, data) => {
     if (err) next(err)
     else {
-      res.redirect('/estoques/');
+      res.redirect('/estoque/');
     }
   });
 
@@ -85,7 +85,7 @@ router.get('/:id', function (req, res, next) {
   db.getestoqueById(req.params.id, (err, data) => {
     if (err) next(err)
     else if (!data) res.status(404).send('estoque não encontrado.');
-    else res.render('estoques/detalhe', { estoque: data });
+    else res.render('estoque/detalhe', { estoque: data });
   });
 
 });
@@ -94,7 +94,7 @@ router.get('/editar/:id', function (req, res, next) {
   db.getestoqueById(req.params.id, (err, data) => {
     if (err) next(err)
     else if (!data) res.status(404).send('estoque não encontrado.');
-    else res.render('estoques/editar', { estoque: data });
+    else res.render('estoque/editar', { estoque: data });
   });
 
 });

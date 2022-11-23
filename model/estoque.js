@@ -26,7 +26,7 @@ class Estoque {
         return dbConn.db.all('SELECT * FROM ESTOQUE', callback);
     }
 
-    static buscarPeloId(id, callback) {
+    static getEstoqueById(id, callback) {
         return dbConn.db.get('SELECT * FROM ESTOQUE WHERE id = (?)', id, callback);
     }
 
