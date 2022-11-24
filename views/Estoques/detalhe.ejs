@@ -15,22 +15,19 @@
   </head>
   <body>
     <div class="todosprodutos">
-    <h1 class="titulo">Produtos</h1>
+    <h1 class="titulo">Estoque</h1>
     <p>
-      <a href="/produtos">Voltar</a> |
-      <a href="/produtos/editar/<%= produto.id %>">Editar</a>
+      <a href="/estoques">Voltar</a> |
+      <a href="/estoques/editar/<%= estoque.id %>">Editar</a>
     </p>
     <p>
-      <strong>Descrição:</strong> <%= produto.descricao %>
+      <strong>ID do Produto:</strong> <%=estoque.idproduto %>
     </p>
     <p>
-      <strong>Preço:</strong> <%= produto.preco %>
+      <strong>Quantidade em Estoque:</strong> <%=estoque.quantidade %>
     </p>
     <p>
-      <strong>Validade:</strong> <%= produto.validade %>
-    </p>
-    <p>
-      <form action="/produtos/deletar/<%= produto.id %>" method="post">
+      <form action="/estoques/deletar/<%=estoque.id %>" method="post">
         <input type="submit" value="Excluir" />
       </form>
     </p>

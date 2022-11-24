@@ -5,7 +5,7 @@ var sqlite3 = require('sqlite3');
 class DBConn {
 
     constructor() {
-        this.db = new sqlite3.Database('db/dev.db');
+        this.db = new sqlite3.Database('db/Trabalhofinal.db');
     }
 
     createTables() {
@@ -79,13 +79,18 @@ class DBConn {
         return this.db.run(sql, [produto,quantidade, data], callback);
     }
 
-    updateEstoque(produto,quantidade, data) {
+    updateEstoque(id,quantidade, data) {
         var sql = 'UPDATE ESTOQUE SET IDPRODUTO = (?),QUANTIDADE = (?) WHERE ID = (?)';
-        return this.db.run(sql, [produto,quantidade,  data], callback);
+        return this.db.run(sql, [id,quantidade,  data], callback);
     }
 
     getEstoqueById(id, callback) {
         var sql = 'SELECT * FROM ESTOQUE WHERE ID = (?)';
+        return this.db.get(sql, id, callback);
+    }
+    
+    getMovimentacaoById(id, callback) {
+        var sql = 'SELECT * FROM MOVIMENTACAO WHERE ID = (?)';
         return this.db.get(sql, id, callback);
     }    
 
@@ -99,9 +104,9 @@ class DBConn {
         return this.db.all(sql, [], callback);
     }
 
-    createMovimentacao(estoque,quantidade, entradasaida) {
-        var sql = 'INSERT INTO MOVIMENTACAO (IDPRODUTO,QUANTIDADE,ENTRADAOUSAIDA) VALUES ((?),(?),(?),(?))';
-        return this.db.run(sql, [estoque,quantidade, entradasaida], callback);
+    createMovimentacao(id,quantidade, tipo, callback ) {
+        var sql = 'INSERT INTO MOVIMENTACAO (IDESTOQUE,QUANTIDADE,ENTRADAOUSAIDA) VALUES ((?),(?),(?))';
+        return this.db.run(sql, [id,quantidade, tipo], callback);
     }
 }
 

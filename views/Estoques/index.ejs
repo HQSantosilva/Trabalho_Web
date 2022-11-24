@@ -5,27 +5,27 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1 class='titulo'>Cadastro de Produtos</h1>
+    <h1 class='titulo'>Movimentações de Estoque</h1>
     <div class="pesquisa">
       <div class ='divNovo'>
-        <p><a href="/produtos/novo">Novo</a></p>
+        <p><a href="/estoques/novo">Novo</a></p>
         <p><a href="/">Voltar</a></p>
       </div>
       <div class= 'divPesquisa'>
-        <form action="/produtos/" method="GET">
+        <form action="/estoques/" method="GET">
           <label for="id" class="pesquisaP">Pesquisa de produto:</label><br>
-          <input type="text" id="id" name="id" value="<%= produto.id %>" /><br>
+          <input type="text" id="id" name="id" value="<%= estoque.id %>" /><br>
           <input type="submit" value="pesquisar" />
         </form>
       </div>
     </div>
     <div class="todosprodutos">
-      <h1>Produtos Cadastrados</h1>
+      <h1>Estoques Cadastrados</h1>
       <ul>
-        <% for(var i = 0; i < produto.length; i++) { %>
+        <% for(var i = 0; i < estoque.length; i++) { %>
           <li>
             <p>
-            <a href="/produtos/<%= produto[i].id %>">Detalhes do Produto: <%= produto[i].descricao%></a>
+            <a href="/estoques/<%= estoque[i].id %>">Detalhes do Estoque: <%= estoque[i].idproduto%></a>
             <!-- <a href="/produtos/<%= produto[i].id %>">Preço <%= produto[i].preco%></a>
             <a href="/produtos/<%= produto[i].id %>">Validade<%= produto[i].validade%></a> -->
             </p>
