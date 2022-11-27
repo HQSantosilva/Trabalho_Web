@@ -53,7 +53,7 @@ class Estoque {
 
         var params = [produto,quantidade, id];
         return dbConn.db.run(sql, params, callback);
-    }    
+    }
 
 
     excluir(callback) {

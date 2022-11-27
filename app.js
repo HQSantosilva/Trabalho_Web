@@ -10,6 +10,9 @@ var usersRouter = require('./routes/users');
 
 var produtosRouter = require('./routes/produtos');
 
+var estoqueRouter = require('./routes/estoques');
+
+
 // Conexão com o banco
 var DBConn = require('./db-conn.js');
 var db = new DBConn();
@@ -32,6 +35,10 @@ app.use('/users', usersRouter);
 
 // Importa o rota produtos
 app.use('/produtos', produtosRouter);
+
+// Importa o rota estoque
+app.use('/estoques', estoqueRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

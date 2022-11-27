@@ -8,9 +8,9 @@
 
 <body>
   <div class="todosprodutos">
-  <h1>Novo Produto</h1>
+  <h1>Movimentação de estoque</h1>
   <p>
-    <a href="/produtos">Voltar</a>
+    <a href="/estoques">Voltar</a>
   </p>
   <% if (typeof(errors) !="undefined" ) { %>
     <div style="color: red; border: 1px solid red;">
@@ -24,18 +24,18 @@
     </div>
     <% } %>
 
-  <form action="/produtos" method="post">
+  <form action="/estoques" method="post">
     <p>
-      <label for="descricao">Descricao do Produto:</label><br>
-      <input type="text" id="descricao" name="descricao"><br>
+      <label for="id">ID do Produto:</label><br>
+      <input type="text" id="id" name="id"><br>
     </p>
     <p>
-      <label for="preco">Preço do Produto:</label><br>
-      <input type="flout" id="preco" name="preco"><br>
+      <label for="quantidade">Quantidade:</label><br>
+      <input type="number" id="quantidade" name="quantidade"><br>
     </p>
     <p>
-      <label for="validade">Validade do Produto:</label><br>
-      <input type="date" id="validade" name="validade"><br>
+      <label for="tipo">Tipo de Movimentação:</label><br>
+      <input type="string" id="tipo" name="tipo"><br>
     </p>
     <input type="submit" value="Submeter">
   </form>

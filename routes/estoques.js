@@ -9,38 +9,38 @@ var db = new DBConn();
 router.get('/', function (req, res, next) {
   db.findAllEstoquesDados( req.query.id, (err, data) => {
     if (err) next(err)
-    else res.render('estoque/index', { estoque: data });
+    else res.render('estoques/index', { estoque: data });
   });
 });
 
 //Chamando novo estoque
 router.get('/novo', function (req, res, next) {
-  res.render('estoque/novo');
+  res.render('estoques/novo');
 });
 
 
 router.post('/', function (req, res, next) {
   var errors = [];
 
-  if (req.body.descricao == "") {
+  if (req.body.id == "") {
     errors.push("Descrição não informado.");
-  } else if (req.body.validade == "") {
+  } else if (req.body.quantidade == "") {
     errors.push("Informe uma validade");
-  } if (req.body.precoe == "") {
+  } if (req.body.tipo == "") {
     errors.push("Não é permitido salvar estoque com preço nulo");
   }
 
   if (errors.length == 0) {
-    db.createEstoque(req.body.descricao,req.body.preco,req.body.validade, (err, data) => {
+    db.createMovimentacao(req.body.id,req.body.quantidade,req.body.tipo, (err, data) => {
       if (err) next(err)
       else {
         db.getLastInsertRowId((err, data) => {
-          res.redirect('/estoque/' + data['last_insert_rowid()'],);
+          res.redirect('/estoques/' + data['last_insert_rowid()'],);
         });
       }
     });
   } else {
-    res.render('estoque/novo', { "errors": errors });
+    res.render('estoques/novo', { "errors": errors });
   }
 });
 
@@ -58,7 +58,7 @@ router.post('/:id', function (req, res, next) {
     db.updateestoques(req.body.id,req.body.descricao,req.body.preco,req.body.validade, (err, data) => {
       if (err) next(err)
       else {
-        res.redirect('/estoque/' + req.body.id);
+        res.redirect('/estoques/' + req.body.id);
       }
     });
   } else {
@@ -67,14 +67,14 @@ router.post('/:id', function (req, res, next) {
     estoque.preco = req.body.preco;
     estoque.validade = req.body.validade;
     
-    res.render('estoque/editar', { "estoque": estoque, "errors": errors });
+    res.render('estoques/editar', { "estoque": estoque, "errors": errors });
   }
 });
 router.post('/deletar/:id', function (req, res, next) {
   db.deleteestoques(req.params.id, (err, data) => {
     if (err) next(err)
     else {
-      res.redirect('/estoque/');
+      res.redirect('/estoques/');
     }
   });
 
@@ -82,10 +82,10 @@ router.post('/deletar/:id', function (req, res, next) {
 
 
 router.get('/:id', function (req, res, next) {
-  db.getestoqueById(req.params.id, (err, data) => {
+  db.getMovimentacaoById(req.params.id, (err, data) => {
     if (err) next(err)
     else if (!data) res.status(404).send('estoque não encontrado.');
-    else res.render('estoque/detalhe', { estoque: data });
+    else res.render('estoques/detalhe', { estoque: data });
   });
 
 });
@@ -94,7 +94,7 @@ router.get('/editar/:id', function (req, res, next) {
   db.getestoqueById(req.params.id, (err, data) => {
     if (err) next(err)
     else if (!data) res.status(404).send('estoque não encontrado.');
-    else res.render('estoque/editar', { estoque: data });
+    else res.render('estoques/editar', { estoque: data });
   });
 
 });
