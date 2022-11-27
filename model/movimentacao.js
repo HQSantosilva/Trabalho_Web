@@ -48,17 +48,18 @@ class Movimentacao {
             case false:
                 valormovimentacao = 0;
         }
-        var sql = `INSERT INTO MOVIMENTACAO (IDESTOQUE, QUANTIDADE,ENTRADAOUSAIDA) VALUES ((?),(?),(?))`;
-        dbConn.db.run(sql, params, callback);        
-        var params = [this.produto,this.quantidade,valormovimentacao, this.id];
-
+        
         if (valormovimentacao = 1) 
             quantidadeestoque=+ this.quantidade; 
         else
             quantidadeestoque=- this.quantidade; 
             
-        sql = `UPDATE ESTOQUE SET QUANTIDADE = (?)  WHERE ID = (?)`;
-        return dbConn.db.run(sql, quantidadeestoque, this.estoque, callback);
+        var updateEstoque = `UPDATE ESTOQUE SET QUANTIDADE = (?)  WHERE ID = (?)`;
+        dbConn.db.run(updateEstoque, quantidadeestoque, this.estoque, callback);
+
+        var sql = `INSERT INTO MOVIMENTACAO (IDESTOQUE, QUANTIDADE,ENTRADAOUSAIDA) VALUES ((?),(?),(?))`;       
+        var params = [this.produto,this.quantidade,valormovimentacao, this.id];
+        return dbConn.db.run(sql, params, callback); 
     }     
 
 }
