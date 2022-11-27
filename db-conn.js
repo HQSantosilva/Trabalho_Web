@@ -5,7 +5,7 @@ var sqlite3 = require('sqlite3');
 class DBConn {
 
     constructor() {
-        this.db = new sqlite3.Database('db/dev.db');
+        this.db = new sqlite3.Database('db/trabalhofinal.db');
     }
 
     createTables() {

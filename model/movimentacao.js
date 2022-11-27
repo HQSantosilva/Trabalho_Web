@@ -49,13 +49,16 @@ class Movimentacao {
                 valormovimentacao = 0;
         }
         var sql = `INSERT INTO MOVIMENTACAO (IDESTOQUE, QUANTIDADE,ENTRADAOUSAIDA) VALUES ((?),(?),(?))`;
+        dbConn.db.run(sql, params, callback);        
         var params = [this.produto,this.quantidade,valormovimentacao, this.id];
-        if (valormovimentacao = 1) 
-            Estoque.atualizaEstoque(this.estoque,quantidadeestoque + this.quantidade)   
-        else
-            Estoque.atualizaEstoque(this.estoque,quantidadeestoque - this.quantidade) 
 
-        return dbConn.db.run(sql, params, callback);
+        if (valormovimentacao = 1) 
+            quantidadeestoque=+ this.quantidade; 
+        else
+            quantidadeestoque=- this.quantidade; 
+            
+        sql = `UPDATE ESTOQUE SET QUANTIDADE = (?)  WHERE ID = (?)`;
+        return dbConn.db.run(sql, quantidadeestoque, this.estoque, callback);
     }     
 
 }

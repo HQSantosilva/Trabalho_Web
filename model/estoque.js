@@ -48,10 +48,10 @@ class Estoque {
         return dbConn.db.run(sql, params, callback);
     } 
 
-    criar(callback) {
+    createEstoque(produto,quantidade, id, callback) {
         var sql = `INSERT INTO ESTOQUE (IDPRODUTO, QUANTIDADE) VALUES ((?),(?),(?))`;
 
-        var params = [this.produto,this.quantidade, this.id];
+        var params = [produto,quantidade, id];
         return dbConn.db.run(sql, params, callback);
     }    
 
@@ -66,11 +66,6 @@ class Estoque {
     return dbConn.db.get('SELECT QUANTIDADE FROM ESTOQUE WHERE ID = (?)',idestoque, callback.quantidade);    
     }
 
-    atualizaEstoque(id, quantidade)
-    {
-        var sql = `UPDATE ESTOQUE SET QUANTIDADE = (?)  WHERE ID = (?)`;
-        return dbConn.db.run(sql, quantidade,id, callback)
-    }
 }
 
 module.exports = Estoque
