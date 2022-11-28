@@ -7,6 +7,7 @@ var dbConn = new DBConn();
 class Produto {
 
     constructor() {
+        this.id;
         this.descricao = '';
         this.erros = [];
         this.preco = 0;
