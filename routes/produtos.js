@@ -83,13 +83,18 @@ router.post('/deletar/:id', function (req, res, next) {
 
 
 router.get('/:id', function (req, res, next) {
-  db.getProdutoById(req.params.id, (err, data) => {
+  db.getProdutoById(req.params.id, (err, data) => 
+  {
     if (err) next(err)
-    else if (!data) res.status(404).send('Produto não encontrado.');
-    else res.render('produtos/detalhe', { produto: data });
+    else if (!data) 
+      res.status(404).send('Produto não encontrado.');
+    else res.render('produtos/detalhe', 
+    { 
+      produto: data 
+    });
   });
-
-});
+  }
+);
 
 router.get('/editar/:id', function (req, res, next) {
   db.getProdutoById(req.params.id, (err, data) => {

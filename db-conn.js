@@ -35,12 +35,12 @@ class DBConn {
     }
 
     findAllProdutos(callback) {
-        var sql = 'SELECT * FROM PRODUTO';
+        var sql = 'SELECT ID,DESCRICAO,PRECO FROM PRODUTO';
         return this.db.all(sql, [], callback);
     }
 
     findAllProdutosDescric(descricao, callback) {
-        var sql = 'SELECT * FROM PRODUTO WHERE DESCRICAO LIKE (?)';
+        var sql = 'SELECT ID,DESCRICAO,PRECO FROM PRODUTO WHERE DESCRICAO LIKE (?)';
         return this.db.all(sql, [descricao + '%'], callback);
     }
 
@@ -55,8 +55,8 @@ class DBConn {
     }
 
     getProdutoById(id, callback) {
-        var sql = 'SELECT * FROM PRODUTO WHERE ID = (?)';
-        return this.db.all(sql, id, callback);
+        var sql = 'SELECT ID,DESCRICAO,PRECO FROM PRODUTO WHERE ID = (?)';
+        return this.db.get(sql, id, callback);
     }    
 
     deleteProdutos(id, callback) {
@@ -65,12 +65,12 @@ class DBConn {
     }    
 
     findAllEstoques(callback) {
-        var sql = 'SELECT * FROM ESTOQUE';
+        var sql = 'SELECT ID,IDPRODUTO,QUANTIDADE FROM ESTOQUE';
         return this.db.all(sql, [], callback);
     }
 
     findAllEstoquesDados(descricao, callback) {
-        var sql = 'SELECT * FROM ESTOQUE WHERE IDPRODUTO LIKE (?)';
+        var sql = 'SELECT ID,IDPRODUTO,QUANTIDADE  FROM ESTOQUE WHERE IDPRODUTO LIKE (?)';
         return this.db.all(sql, [descricao + '%'], callback);
     }
 
@@ -85,12 +85,12 @@ class DBConn {
     }
 
     getEstoqueById(id, callback) {
-        var sql = 'SELECT * FROM ESTOQUE WHERE ID = (?)';
+        var sql = 'SELECT ID,IDPRODUTO,QUANTIDADE  FROM ESTOQUE WHERE ID = (?)';
         return this.db.all(sql, [id], callback);
     }
     
     getMovimentacaoById(id, callback) {
-        var sql = 'SELECT * FROM MOVIMENTACAO WHERE ID = (?)';
+        var sql = 'SELECT ID,IDPRODUTO,QUANTIDADE  FROM MOVIMENTACAO WHERE ID = (?)';
         return this.db.all(sql, [id], callback);
     }    
 
@@ -100,7 +100,7 @@ class DBConn {
     }    
 
     findAllMovimentacoes(callback) {
-        var sql = 'SELECT * FROM MOVIMENTACAO';
+        var sql = 'SELECT ID,IDESTOQUE,QUANTIDADE,ENTRADAOUSAIDA FROM MOVIMENTACAO';
         return this.db.all(sql, [], callback);
     }
 
