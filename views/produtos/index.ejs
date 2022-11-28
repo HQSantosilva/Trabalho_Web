@@ -14,7 +14,7 @@
       <div class= 'divPesquisa'>
         <form action="/produtos/" method="GET">
           <label for="id" class="pesquisaP">Pesquisa de produto:</label><br>
-          <input type="text" id="id" name="id" value="<%= produto.id %>" /><br>
+          <input type="text" id="id" name="id" value="<%= produto.ID %>" /><br>
           <input type="submit" value="pesquisar" />
         </form>
       </div>
@@ -25,10 +25,10 @@
         <% for(var i = 0; i < produto.length; i++) { %>
           <li>
             <p>
-            <a href="/produtos/<%= produto[i].id %>">Detalhes do Produto: <%= produto[i].descricao%></a>
+            <a href="/produtos/<%= produto[i].ID %>">Detalhes do Produto: <%= produto[i].DESCRICAO %></a>
             </p>
           </li>
-        <% } %>  
+        <% } %>
       </ul>
   </div>
   </body>

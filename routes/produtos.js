@@ -7,7 +7,7 @@ var db = new DBConn();
 
 //home produtos. */
 router.get('/', function (req, res, next) {
-  db.findAllProdutosDescric( req.query.id, (err, data) => {
+  db.findAllProdutos( (err, data) => {
     if (err) next(err)
     else res.render('produtos/index', { produto: data });
   });
@@ -67,7 +67,7 @@ router.post('/:id', function (req, res, next) {
     var produto = {};
     produto.descricao = req.body.descricao;
     produto.preco = req.body.preco;
-    
+
     res.render('produtos/editar', { "produto": produto, "errors": errors });
   }
 });
@@ -83,14 +83,14 @@ router.post('/deletar/:id', function (req, res, next) {
 
 
 router.get('/:id', function (req, res, next) {
-  db.getProdutoById(req.params.id, (err, data) => 
+  db.getProdutoById(req.params.id, (err, data) =>
   {
     if (err) next(err)
-    else if (!data) 
+    else if (!data)
       res.status(404).send('Produto não encontrado.');
-    else res.render('produtos/detalhe', 
-    { 
-      produto: data 
+    else res.render('produtos/detalhe',
+    {
+      produto: data
     });
   });
   }

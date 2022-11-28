@@ -27,14 +27,14 @@
     <% } %>
 
   <form action="/produtos/<%= produto.id %>" method="POST">
-    <input type="hidden" id="id" name="id" value="<%= produto.id %>" /><br>
+    <input type="hidden" id="id" name="id" value="<%= produto.ID %>" /><br>
     <p>
       <label for="descricao">Informe a nova descrição do produto:</label><br>
-      <input type="text" id="descricao" name="descricao" value="<%= produto.descricao %>" /><br>
+      <input type="text" id="descricao" name="descricao" value="<%= produto.DESCRICAO %>" /><br>
     </p>
     <p>
       <label for="preco">Informe o novo preço do Produto:</label><br>
-      <input type="text" id="preco" name="preco" value="<%= produto.preco%>" /><br>
+      <input type="text" id="preco" name="preco" value="<%= produto.PRECO %>" /><br>
     </p>
     <input type="submit" value="Submeter">
   </form>
