@@ -24,9 +24,8 @@ router.post('/', function (req, res, next) {
 
   if (req.body.descricao == "") {
     errors.push("Descrição não informado.");
-  } else if (req.body.validade == "") {
-    errors.push("Informe uma validade");
-  } if (req.body.precoe == "") {
+  }
+  if (req.body.preco == "") {
     errors.push("Não é permitido salvar produto com preço nulo");
   }
   // if (red.body.descrição <=3){
@@ -34,7 +33,7 @@ router.post('/', function (req, res, next) {
   // }
 
   if (errors.length == 0) {
-    db.createProduto(req.body.descricao,req.body.preco,req.body.validade, (err, data) => {
+    db.createProduto(req.body.descricao,req.body.preco, (err, data) => {
       if (err) next(err)
       else {
         db.getLastInsertRowId((err, data) => {
@@ -58,7 +57,7 @@ router.post('/:id', function (req, res, next) {
   // }
 
   if (errors.length == 0) {
-    db.updateProdutos(req.body.id,req.body.descricao,req.body.preco,req.body.validade, (err, data) => {
+    db.updateProdutos(req.body.id,req.body.descricao,req.body.preco,(err, data) => {
       if (err) next(err)
       else {
         res.redirect('/produtos/' + req.body.id);
@@ -68,7 +67,6 @@ router.post('/:id', function (req, res, next) {
     var produto = {};
     produto.descricao = req.body.descricao;
     produto.preco = req.body.preco;
-    produto.validade = req.body.validade;
     
     res.render('produtos/editar', { "produto": produto, "errors": errors });
   }

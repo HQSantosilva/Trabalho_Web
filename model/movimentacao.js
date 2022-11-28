@@ -1,5 +1,4 @@
 var DBConn = require('../db-conn.js');
-const Estoque = require('./estoque.js');
 var dbConn = new DBConn();
 
 class Movimentacao {
