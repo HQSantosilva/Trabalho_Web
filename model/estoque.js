@@ -23,11 +23,11 @@ class Estoque {
     }    
 
     static buscarTodos(callback) {
-        return dbConn.db.all('SELECT * FROM ESTOQUE', callback);
+        return dbConn.db.all('SELECT * FROM ESTOQUE',[], callback);
     }
 
     static getEstoqueById(id, callback) {
-        return dbConn.db.get('SELECT * FROM ESTOQUE WHERE id = (?)', id, callback);
+        return dbConn.db.get('SELECT * FROM ESTOQUE WHERE id = (?)', [id], callback);
     }
 
     salvar(callback) {
@@ -59,11 +59,11 @@ class Estoque {
     excluir(callback) {
         var sql = `DELETE FROM ESTOQUE  WHERE ID = (?)`;
 
-        return dbConn.db.run(sql, this.id, callback);
+        return dbConn.db.run(sql, [this.id], callback);
     }  
     
     getQuantidadeEstoque(idestoque){
-    return dbConn.db.get('SELECT QUANTIDADE FROM ESTOQUE WHERE ID = (?)',idestoque, callback.quantidade);    
+    return dbConn.db.get('SELECT QUANTIDADE FROM ESTOQUE WHERE ID = (?)',[idestoque], callback.quantidade);    
     }
 
 }

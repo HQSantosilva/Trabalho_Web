@@ -14,6 +14,7 @@
     </script>
   </head>
   <body>
+    <form action="/produtos/deletar/<%= produto.id %>" method="post">
     <div class="todosprodutos">
     <h1 class="titulo">Produtos</h1>
     <p>
@@ -27,10 +28,6 @@
       <strong>Preço:</strong> <%= produto.preco %>
     </p>
     <p>
-      <strong>Validade:</strong> <%= produto.validade %>
-    </p>
-    <p>
-      <form action="/produtos/deletar/<%= produto.id %>" method="post">
         <input type="submit" value="Excluir" />
       </form>
     </p>

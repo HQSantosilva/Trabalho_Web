@@ -29,11 +29,11 @@ class Produto {
     }    
 
     static buscarTodos(callback) {
-        return dbConn.db.all('SELECT * FROM PRODUTO', callback);
+        return dbConn.db.all('SELECT * FROM PRODUTO',[], callback);
     }
 
     static buscarPeloId(id, callback) {
-        return dbConn.db.get('SELECT * FROM PRODUTO WHERE id = (?)', id, callback);
+        return dbConn.db.get('SELECT * FROM PRODUTO WHERE id = (?)', [id], callback);
     }
 
     salvar(callback) {
@@ -67,7 +67,7 @@ class Produto {
         var sql = `DELETE FROM PRODUTO
         WHERE ID = (?)`;
 
-        return dbConn.db.run(sql, this.id, callback);
+        return dbConn.db.run(sql, [this.id], callback);
     }      
 
 }

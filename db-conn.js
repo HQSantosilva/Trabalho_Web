@@ -31,7 +31,7 @@ class DBConn {
     }
 
     getLastInsertRowId(callback) {
-        return this.db.get('SELECT last_insert_rowid()', callback);
+        return this.db.get('SELECT last_insert_rowid()',[], callback);
     }
 
     findAllProdutos(callback) {
@@ -56,12 +56,12 @@ class DBConn {
 
     getProdutoById(id, callback) {
         var sql = 'SELECT * FROM PRODUTO WHERE ID = (?)';
-        return this.db.get(sql, id, callback);
+        return this.db.all(sql, id, callback);
     }    
 
     deleteProdutos(id, callback) {
         var sql = 'DELETE FROM PRODUTO WHERE ID = (?)';
-        return this.db.run(sql, id, callback);
+        return this.db.run(sql, [id], callback);
     }    
 
     findAllEstoques(callback) {
@@ -86,17 +86,17 @@ class DBConn {
 
     getEstoqueById(id, callback) {
         var sql = 'SELECT * FROM ESTOQUE WHERE ID = (?)';
-        return this.db.get(sql, id, callback);
+        return this.db.all(sql, [id], callback);
     }
     
     getMovimentacaoById(id, callback) {
         var sql = 'SELECT * FROM MOVIMENTACAO WHERE ID = (?)';
-        return this.db.get(sql, id, callback);
+        return this.db.all(sql, [id], callback);
     }    
 
     deleteEstoque(id, callback) {
         var sql = 'DELETE FROM ESTOQUE WHERE ID = (?)';
-        return this.db.run(sql, id, callback);
+        return this.db.all(sql, [id], callback);
     }    
 
     findAllMovimentacoes(callback) {
