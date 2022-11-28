@@ -14,18 +14,18 @@
     </script>
   </head>
   <body>
-    <form action="/estoques/deletar/<%=estoque.ID %>" method="post">
+    <form action="/produtos/deletar/<%= produto.id %>" method="post">
     <div class="todosprodutos">
-    <h1 class="titulo">Estoque</h1>
+    <h1 class="titulo">Produtos</h1>
     <p>
-      <a href="/estoques">Voltar</a> |
-      <a href="/estoques/editar/<%= estoque.ID %>">Editar</a>
+      <a href="/produtos">Voltar</a> |
+      <a href="/produtos/editar/<%= produto.ID %>">Editar</a>
     </p>
     <p>
-      <strong>ID do Produto:</strong> <%=estoque.IDPRODUTO %>
+      <strong>Descrição:</strong> <%= produto.DESCRICAO %>
     </p>
     <p>
-      <strong>Quantidade em Estoque:</strong> <%=estoque.QUANTIDADE %>
+      <strong>Preço:</strong> <%= produto.PRECO %>
     </p>
     <p>
         <input type="submit" value="Excluir" />
