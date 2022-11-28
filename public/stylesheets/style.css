@@ -49,3 +49,7 @@ div.pesquisa{
 .pesquisaP{
   color: #e1e1e6;
 }
+
+#menu:hover{
+  background-color: #008757;
+}
