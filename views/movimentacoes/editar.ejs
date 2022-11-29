@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Editar movimentação</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <nav><object width="100%" height="65px" data="../views/menu.ejs"></object></nav>
+  <div class="todosprodutos">
+  <h1>
+    Editar Movimentação
+  </h1>
+  <p>
+    <a href="/movimentacoes">Voltar</a>
+  </p>
+  <% if (typeof(errors) !="undefined" ) { %>
+    <div style="color: red; border: 1px solid red;">
+      <ul>
+        <% for(var i=0; i < errors.length; i++) { %>
+          <li>
+            <%= errors[i] %>
+          </li>
+          <% } %>
+      </ul>
+    </div>
+    <% } %>
+
+  <form action="/movimentacoes/<%= movimentacao.ID %>" method="POST">
+    <input type="hidden" name="id" value="<%= movimentacao.ID %>" />
+    <input type="hidden" name="idProdutoAntigo" value="<%= movimentacao.IDPRODUTO %>" />
+    <input type="hidden" name="movimentacaoAntiga" value="<%= movimentacao.QUANTIDADE %>" />
+    <input type="hidden" name="eraEntradaOuSaida" value="<%= movimentacao.ENTRADAOUSAIDA %>" />
+    <p>
+      Produto da movimentação: <%= movimentacao.DESCRICAO %><br>
+      <label for="idProdutoNovo">Produto a ser movimentado:</label><br>
+      <select id="idProdutoNovo" name="idProdutoNovo">
+        <% for(var i=0; i < produtos.length; i++) { %>
+          <option value="<%= produtos[i].ID %>" <%= (produtos[i].ID == movimentacao.IDPRODUTO) ? 'selected' : '' %>>
+            <%= produtos[i].DESCRICAO %>
+          </option>
+        <% } %>
+      </select>
+    </p>
+    <p>
+      <label for="tipo">Entrada ou saída?:</label><br>
+      <select id="tipo" name="tipo">
+        <option value="ENTRADA" <%= (movimentacao.ENTRADAOUSAIDA == 1) ? 'selected' : '' %>>Entrada</option>
+        <option value="SAIDA"   <%= (movimentacao.ENTRADAOUSAIDA == 0) ? 'selected' : '' %>>Saída</option>
+      </select>
+    </p>
+    <p>
+      <label for="quantidade">Informe a nova quantidade da movimentação:</label><br>
+      <input type="text" id="quantidade" name="quantidade" value="<%= movimentacao.QUANTIDADE %>" /><br>
+    </p>
+    <input type="submit" value="Submeter">
+  </form>
+</div>
+</body>
+
+</html>

@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>produtos</title>
+    <title>Movimentação</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script type="text/javascript">
       function deletarProduto(){
         var confirmed = confirm("Confirma exclusão do produto?");
         if (confirmed) {
-          fetch('/produtos', { method: 'DELETE' }).then(window.location.href = "/produtos");
+          fetch('/movimentacoes', { method: 'DELETE' }).then(window.location.href = "/movimentacoes");
         }
 
       }
     </script>
   </head>
   <body>
-    <form action="/produtos/deletar/<%= produto.id %>" method="post">
+    <form action="/movimentacoes/deletar/<%= movimentacao.ID %>" method="post">
     <div class="todosprodutos">
-    <h1 class="titulo">Produtos</h1>
+    <h1 class="titulo">Movimentação</h1>
     <p>
-      <a href="/produtos">Voltar</a> |
-      <a href="/produtos/editar/<%= produto.ID %>">Editar</a>
+      <a href="/movimentacoes">Voltar</a> |
+      <a href="/movimentacoes/editar/<%= movimentacao.ID %>">Editar</a>
     </p>
     <p>
-      <strong>Descrição:</strong> <%= produto.DESCRICAO %>
+      <strong>Descrição:</strong> <%= movimentacao.DESCRICAO %>
     </p>
     <p>
-      <strong>Preço:</strong> <%= produto.PRECO %>
+      <strong>Quantidade:</strong> <%= movimentacao.QUANTIDADE %>
+    </p>
+    <p>
+      <strong>Tipo:</strong>
+      <% if (movimentacao.ENTRADAOUSAIDA == 1) { %>
+        <span class="verde">Entrada</span>
+      <% } else { %>
+        <span class="vermelho">Saída</span>
+      <% } %>
     </p>
     <p>
         <input type="submit" value="Excluir" />

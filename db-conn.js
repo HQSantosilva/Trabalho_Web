@@ -89,6 +89,11 @@ class DBConn {
         return this.db.run(sql, [idProduto, quantidade, id], callback);
     }
 
+    updateEstoqueByIdProduto(idProduto, quantidade, callback) {
+        var sql = 'UPDATE ESTOQUE SET QUANTIDADE = (?) WHERE IDPRODUTO = (?)';
+        return this.db.run(sql, [quantidade, idProduto], callback);
+    }
+
     getEstoqueById(id, callback) {
         var sql = 'SELECT ID, IDPRODUTO, QUANTIDADE FROM ESTOQUE WHERE ID = (?)';
         return this.db.get(sql, [id], callback);
@@ -101,6 +106,11 @@ class DBConn {
 
     getMovimentacaoById(id, callback) {
         var sql = 'SELECT ID, IDPRODUTO, QUANTIDADE FROM MOVIMENTACAO WHERE ID = (?)';
+        return this.db.get(sql, [id], callback);
+    }
+
+    getMovimentacaoByIdComProduto(id, callback) {
+        var sql = 'SELECT MOVIMENTACAO.ID, MOVIMENTACAO.IDPRODUTO, MOVIMENTACAO.QUANTIDADE, MOVIMENTACAO.ENTRADAOUSAIDA, PRODUTO.DESCRICAO FROM MOVIMENTACAO INNER JOIN PRODUTO ON MOVIMENTACAO.IDPRODUTO=PRODUTO.ID WHERE MOVIMENTACAO.ID = (?)';
         return this.db.get(sql, [id], callback);
     }
 
@@ -117,6 +127,11 @@ class DBConn {
     createMovimentacao(idProduto, quantidade, tipo, callback ) {
         var sql = 'INSERT INTO MOVIMENTACAO (IDPRODUTO, QUANTIDADE, ENTRADAOUSAIDA) VALUES ((?),(?),(?))';
         return this.db.run(sql, [idProduto, quantidade, tipo], callback);
+    }
+
+    updateMovimentacao(id, idProduto, quantidade, isEntrada, callback) {
+        var sql = 'UPDATE MOVIMENTACAO SET IDPRODUTO = (?),QUANTIDADE = (?), ENTRADAOUSAIDA = (?) WHERE ID = (?)';
+        return this.db.run(sql, [idProduto ,quantidade, isEntrada, id], callback);
     }
 }
 
