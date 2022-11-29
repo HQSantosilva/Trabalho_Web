@@ -16,13 +16,13 @@ class DBConn {
             PRECO DECIMAL NOT NULL DEFAULT (0)
         );
         CREATE TABLE IF NOT EXISTS ESTOQUE (
-            ID INTEGER NOT NULL PRIMARY KEY,
+            ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
             IDPRODUTO INTEGER NOT NULL REFERENCES PRODUTO(ID),
-            QUANTIDADE INTEGER NULL
+            QUANTIDADE INTEGER NOT NULL
         );
         CREATE TABLE IF NOT EXISTS MOVIMENTACAO (
             ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-            IDESTOQUE INTEGER NOT NULL REFERENCES ESTOQUE(ID),
+            IDPRODUTO INTEGER NOT NULL REFERENCES PRODUTO(ID),
             QUANTIDADE INTEGER NOT NULL,
             ENTRADAOUSAIDA BIT NOT NULL
         );
@@ -57,15 +57,20 @@ class DBConn {
     getProdutoById(id, callback) {
         var sql = 'SELECT ID,DESCRICAO,PRECO FROM PRODUTO WHERE ID = (?)';
         return this.db.get(sql, id, callback);
-    }    
+    }
 
     deleteProdutos(id, callback) {
         var sql = 'DELETE FROM PRODUTO WHERE ID = (?)';
         return this.db.run(sql, [id], callback);
-    }    
+    }
 
     findAllEstoques(callback) {
         var sql = 'SELECT ID,IDPRODUTO,QUANTIDADE FROM ESTOQUE';
+        return this.db.all(sql, [], callback);
+    }
+
+    findAllEstoquesWithProdutos(callback) {
+        var sql = 'SELECT ESTOQUE.ID, ESTOQUE.IDPRODUTO, ESTOQUE.QUANTIDADE, PRODUTO.DESCRICAO FROM ESTOQUE INNER JOIN PRODUTO ON ESTOQUE.IDPRODUTO=PRODUTO.ID';
         return this.db.all(sql, [], callback);
     }
 
@@ -74,39 +79,44 @@ class DBConn {
         return this.db.all(sql, [descricao + '%'], callback);
     }
 
-    createEstoque(produto,quantidade, data) {
-        var sql = 'INSERT INTO ESTOQUE (IDPRODUTO, QUANTIDADE) VALUES ((?),(?),(?),(?))';
-        return this.db.run(sql, [produto,quantidade, data], callback);
+    createEstoque(produto, quantidade, callback) {
+        var sql = 'INSERT INTO ESTOQUE (IDPRODUTO, QUANTIDADE) VALUES ((?),(?))';
+        return this.db.run(sql, [produto, quantidade], callback);
     }
 
-    updateEstoque(id,quantidade, data) {
+    updateEstoque(id, idProduto, quantidade, callback) {
         var sql = 'UPDATE ESTOQUE SET IDPRODUTO = (?),QUANTIDADE = (?) WHERE ID = (?)';
-        return this.db.run(sql, [id,quantidade,  data], callback);
+        return this.db.run(sql, [idProduto, quantidade, id], callback);
     }
 
     getEstoqueById(id, callback) {
-        var sql = 'SELECT ID,IDPRODUTO,QUANTIDADE  FROM ESTOQUE WHERE ID = (?)';
-        return this.db.all(sql, [id], callback);
+        var sql = 'SELECT ID, IDPRODUTO, QUANTIDADE FROM ESTOQUE WHERE ID = (?)';
+        return this.db.get(sql, [id], callback);
     }
-    
-    getMovimentacaoById(id, callback) {
-        var sql = 'SELECT ID,IDPRODUTO,QUANTIDADE  FROM MOVIMENTACAO WHERE ID = (?)';
-        return this.db.all(sql, [id], callback);
-    }    
 
-    deleteEstoque(id, callback) {
-        var sql = 'DELETE FROM ESTOQUE WHERE ID = (?)';
-        return this.db.all(sql, [id], callback);
-    }    
+    getEstoqueByIdProduto(id, callback) {
+        var sql = 'SELECT ID, IDPRODUTO, QUANTIDADE FROM ESTOQUE WHERE IDPRODUTO = (?)';
+        return this.db.get(sql, [id], callback);
+    }
+
+    getMovimentacaoById(id, callback) {
+        var sql = 'SELECT ID, IDPRODUTO, QUANTIDADE FROM MOVIMENTACAO WHERE ID = (?)';
+        return this.db.get(sql, [id], callback);
+    }
 
     findAllMovimentacoes(callback) {
-        var sql = 'SELECT ID,IDESTOQUE,QUANTIDADE,ENTRADAOUSAIDA FROM MOVIMENTACAO';
+        var sql = 'SELECT ID, IDPRODUTO, QUANTIDADE, ENTRADAOUSAIDA FROM MOVIMENTACAO';
         return this.db.all(sql, [], callback);
     }
 
-    createMovimentacao(id,quantidade, tipo, callback ) {
-        var sql = 'INSERT INTO MOVIMENTACAO (IDESTOQUE,QUANTIDADE,ENTRADAOUSAIDA) VALUES ((?),(?),(?))';
-        return this.db.run(sql, [id,quantidade, tipo], callback);
+    findAllMovimentacoesWithProdutos(callback) {
+        var sql = 'SELECT MOVIMENTACAO.ID, MOVIMENTACAO.IDPRODUTO, MOVIMENTACAO.QUANTIDADE, MOVIMENTACAO.ENTRADAOUSAIDA, PRODUTO.DESCRICAO FROM MOVIMENTACAO INNER JOIN PRODUTO ON MOVIMENTACAO.IDPRODUTO=PRODUTO.ID';
+        return this.db.all(sql, [], callback);
+    }
+
+    createMovimentacao(idProduto, quantidade, tipo, callback ) {
+        var sql = 'INSERT INTO MOVIMENTACAO (IDPRODUTO, QUANTIDADE, ENTRADAOUSAIDA) VALUES ((?),(?),(?))';
+        return this.db.run(sql, [idProduto, quantidade, tipo], callback);
     }
 }
 

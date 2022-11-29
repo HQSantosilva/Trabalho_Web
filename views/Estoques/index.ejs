@@ -5,7 +5,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <nav><object width="100%" height="65px" data="../views/menu.ejs"></object></nav>  
+    <nav><object width="100%" height="65px" data="../views/menu.ejs"></object></nav>
     <h1 class='titulo'>Movimentações de Estoque</h1>
     <div class="pesquisa">
       <div class ='divNovo'>
@@ -15,7 +15,7 @@
       <div class= 'divPesquisa'>
         <form action="/estoques/" method="GET">
           <label for="id" class="pesquisaP">Pesquisa de produto:</label><br>
-          <input type="text" id="id" name="id" value="<%= estoque.id %>" /><br>
+          <input type="text" id="id" name="id" value="<%= estoque.ID %>" /><br>
           <input type="submit" value="pesquisar" />
         </form>
       </div>
@@ -26,10 +26,10 @@
         <% for(var i = 0; i < estoque.length; i++) { %>
           <li>
             <p>
-            <a href="/estoques/<%= estoque[i].id %>">Detalhes do Estoque: <%= estoque[i].IDPRODUTO%></a>
+            <a href="/estoques/<%= estoque[i].ID %>">Detalhes do Estoque: <b><%= estoque[i].DESCRICAO %></b> com <b><%= estoque[i].QUANTIDADE %></b> unidades em estoque</a>
             </p>
           </li>
-        <% } %>  
+        <% } %>
       </ul>
   </div>
   </body>

@@ -5,27 +5,29 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1 class='titulo'>Cadastro de Produtos</h1>
+    <h1 class='titulo'>Registro de Movimentações</h1>
     <div class="pesquisa">
       <div class ='divNovo'>
-        <p><a href="/produtos/novo">Novo</a></p>
+        <p><a href="/estoques/novo">Novo</a></p>
         <p><a href="/">Voltar</a></p>
       </div>
       <div class= 'divPesquisa'>
-        <form action="/produtos/" method="GET">
+        <form action="/movimentacoes/" method="GET">
           <label for="id" class="pesquisaP">Pesquisa de produto:</label><br>
-          <input type="text" id="id" name="id" value="<%= produto.ID %>" /><br>
+          <input type="text" id="id" name="id" value="<%= movimentacao.ID %>" /><br>
           <input type="submit" value="pesquisar" />
         </form>
       </div>
     </div>
     <div class="todosprodutos">
-      <h1>Produtos Cadastrados</h1>
+      <h1>Movimentações</h1>
       <ul>
-        <% for(var i = 0; i < produto.length; i++) { %>
+        <% for(var i = 0; i < movimentacao.length; i++) { %>
           <li>
             <p>
-            <a href="/produtos/<%= produto[i].ID %>">Detalhes do Produto: <%= produto[i].DESCRICAO %></a>
+              <a href="/movimentacoes/<%= movimentacao[i].ID %>">
+                <span class="<%= movimentacao[i].cor %>"><%= movimentacao[i].acao %></span> de <%= movimentacao[i].QUANTIDADE %> <%= movimentacao[i].DESCRICAO %>
+              </a>
             </p>
           </li>
         <% } %>

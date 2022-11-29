@@ -7,15 +7,29 @@ var db = new DBConn();
 
 //home estoques. */
 router.get('/', function (req, res, next) {
-  db.findAllMovimentacoes( req.query.id, (err, data) => {
+  db.findAllMovimentacoesWithProdutos( (err, data) => {
     if (err) next(err)
-    else res.render('movimentacoes/index', { movimentacao: data });
+    else {
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].ENTRADAOUSAIDA == 1) {
+          data[i].cor = 'verde';
+          data[i].acao = 'Entrada';
+        } else {
+          data[i].cor = 'vermelho';
+          data[i].acao = 'Saída';
+        }
+      }
+
+      res.render('movimentacoes/index', { movimentacao: data });
+    }
   });
 });
 
 //Chamando novo estoque
 router.get('/novo', function (req, res, next) {
-  res.render('movimentacoes/novo');
+  db.findAllProdutos( (err, data) => {
+    res.render('movimentacoes/novo', {produtos: data});
+  })
 });
 
 

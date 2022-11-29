@@ -9,11 +9,19 @@ class Movimentacao {
         this.entradasaida = false;
     }
 
-    carregar(json){        
+    carregar(json){
         this.id = json.id;
         this.estoque = json.estoque;
         this.quantidade = json.quantidade;
         this.entradasaida = json.entradasaida;
+    }
+
+    static buscarTodos(callback) {
+        return dbConn.db.all('SELECT * FROM MOVIMENTACOES',[], callback);
+    }
+
+    static buscarPeloId(id, callback) {
+        return dbConn.db.get('SELECT * FROM MOVIMENTACOES WHERE ID = (?)', [id], callback);
     }
 
     validar() {
@@ -21,9 +29,9 @@ class Movimentacao {
         quantidadeestoque = Estoque.getQuantidadeEstoque(this.estoque);
         if (quantidadeestoque -this.quantidade < 0)
             this.erros.push('A quantidade a ser removida do estoque não pode ser menor que 0');
-             
+
         return this.erros.length == 0;
-    }    
+    }
 
     static buscarTodos(callback) {
         return dbConn.db.all('SELECT * FROM MOVIMENTACAO', callback);
@@ -47,17 +55,17 @@ class Movimentacao {
             case false:
                 valormovimentacao = 0;
         }
-        
-        if (valormovimentacao = 1) 
-            this.quantidade= quantidadeestoque + this.quantidade; 
+
+        if (valormovimentacao = 1)
+            this.quantidade= quantidadeestoque + this.quantidade;
         else
-            this.quantidade= quantidadeestoque- this.quantidade; 
-        
+            this.quantidade= quantidadeestoque- this.quantidade;
+
         var sql =  `UPDATE ESTOQUE SET QUANTIDADE = (?)  WHERE ID = (?);
-                INSERT INTO MOVIMENTACAO (IDESTOQUE, QUANTIDADE,ENTRADAOUSAIDA) VALUES ((?),(?),(?))`;       
+                INSERT INTO MOVIMENTACAO (IDESTOQUE, QUANTIDADE,ENTRADAOUSAIDA) VALUES ((?),(?),(?))`;
         var params = [this.quantidade, this.estoque, this.produto,this.quantidade,valormovimentacao, this.id];
-        return dbConn.db.run(sql, params, callback); 
-    }     
+        return dbConn.db.run(sql, params, callback);
+    }
 
 }
 

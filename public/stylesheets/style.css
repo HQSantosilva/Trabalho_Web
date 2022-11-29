@@ -30,20 +30,28 @@ div.todosprodutos{
   color: #e1e1e6;
   border: 2px solid #008757;
   background-color: #323238;
+  padding: 0px 8px;
 }
 
+li {
+  line-height: 25px;
+}
 
 div.pesquisa{
   border: 2px solid #008757;
   background-color: #323238;
   max-width: 100rem;
-  padding-left: 8px; 
-  display: flex;  
+  padding-left: 8px;
+  display: flex;
 
 }
 
 .divNovo {
-  padding-right: 58rem; 
+  padding-right: 58rem;
+}
+
+.divPesquisa {
+  padding: 4px 0px;
 }
 
 .pesquisaP{
@@ -52,4 +60,12 @@ div.pesquisa{
 
 #menu:hover{
   background-color: #008757;
+}
+
+.verde {
+  background-color: #008757;
+}
+
+.vermelho {
+  background-color: #DD3333;
 }

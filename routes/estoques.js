@@ -7,7 +7,7 @@ var db = new DBConn();
 
 //home estoques. */
 router.get('/', function (req, res, next) {
-  db.findAllEstoquesDados( req.query.id, (err, data) => {
+  db.findAllEstoquesWithProdutos( (err, data) => {
     if (err) next(err)
     else res.render('estoques/index', { estoque: data });
   });
@@ -15,27 +15,53 @@ router.get('/', function (req, res, next) {
 
 //Chamando novo estoque
 router.get('/novo', function (req, res, next) {
-  res.render('estoques/novo');
+  db.findAllProdutos( (err, data) => {
+    res.render('estoques/novo', {produtos: data});
+  })
 });
 
 
 router.post('/', function (req, res, next) {
   var errors = [];
 
-  if (req.body.id == "") {
-    errors.push("Descrição não informado.");
+  if (req.body.idProduto == "") {
+    errors.push("Produto não especificado.");
   } else if (req.body.quantidade == "") {
-    errors.push("Informe uma validade");
-  } if (req.body.tipo == "") {
-    errors.push("Não é permitido salvar estoque com preço nulo");
+    errors.push("Informe uma quantidade");
+  } if (req.body.tipo != "ENTRADA" && req.body.tipo != "SAIDA") {
+    errors.push("Não foi específicado se é entrada ou saída");
   }
 
   if (errors.length == 0) {
-    db.createMovimentacao(req.body.id,req.body.quantidade,req.body.tipo, (err, data) => {
+    var isEntrada = req.body.tipo == "ENTRADA";
+
+    db.createMovimentacao(req.body.idProduto, req.body.quantidade, isEntrada, (err, data) => {
       if (err) next(err)
       else {
-        db.getLastInsertRowId((err, data) => {
-          res.redirect('/estoques/' + data['last_insert_rowid()'],);
+        db.getEstoqueByIdProduto(req.body.idProduto, (err, data) => {
+          if (data) {
+            var quantidade = +data.QUANTIDADE;
+            if(isEntrada) {
+              quantidade += req.body.quantidade;
+            } else {
+              quantidade -= req.body.quantidade;
+            }
+
+            db.updateEstoque(data.ID, data.IDPRODUTO, quantidade, () => {
+              res.redirect('/estoques/');
+            })
+          } else {
+            var quantidade = 0;
+            if(isEntrada) {
+              quantidade += req.body.quantidade;
+            } else {
+              quantidade -= req.body.quantidade;
+            }
+
+            db.createEstoque(req.body.idProduto, quantidade, () => {
+              res.redirect('/estoques/');
+            })
+          }
         });
       }
     });
@@ -66,7 +92,7 @@ router.post('/:id', function (req, res, next) {
     estoque.descricao = req.body.descricao;
     estoque.preco = req.body.preco;
     estoque.validade = req.body.validade;
-    
+
     res.render('estoques/editar', { "estoque": estoque, "errors": errors });
   }
 });

@@ -9,8 +9,8 @@ var usersRouter = require('./routes/users');
 
 
 var produtosRouter = require('./routes/produtos');
-
 var estoqueRouter = require('./routes/estoques');
+var movimentacaoRouter = require('./routes/movimentacoes');
 
 
 // Conexão com o banco
@@ -39,6 +39,8 @@ app.use('/produtos', produtosRouter);
 // Importa o rota estoque
 app.use('/estoques', estoqueRouter);
 
+// Rota de movimentações
+app.use('/movimentacoes', movimentacaoRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
