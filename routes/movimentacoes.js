@@ -9,7 +9,15 @@ var db = new DBConn();
 router.get('/', function (req, res, next) {
   if(req.query.pesquisa) {
     db.findAllMovimentacaoDescric(req.query.pesquisa, (err, data) => {
-      console.log(data);
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].ENTRADAOUSAIDA == 1) {
+          data[i].cor = 'verde';
+          data[i].acao = 'Entrada';
+        } else {
+          data[i].cor = 'vermelho';
+          data[i].acao = 'Saída';
+        }
+      }
       if (err) next(err)
       else res.render('movimentacoes/index',
       {
