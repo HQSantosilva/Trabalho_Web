@@ -2,15 +2,16 @@
 <html>
 
 <head>
-  <title>Eventos</title>
+  <title>Movimentações</title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
 <body>
+  <nav><object width="100%" height="65px" data="../views/menu.ejs"></object></nav>
   <div class="todosprodutos">
-  <h1>Novo Produto</h1>
+  <h1>Movimentação de estoque</h1>
   <p>
-    <a href="/produtos">Voltar</a>
+    <a href="/movimentacoes">Voltar</a>
   </p>
   <% if (typeof(errors) !="undefined" ) { %>
     <div style="color: red; border: 1px solid red;">
@@ -24,14 +25,27 @@
     </div>
     <% } %>
 
-  <form action="/produtos" method="post">
+  <form action="/movimentacoes" method="post">
     <p>
-      <label for="descricao">Descricao do Produto:</label><br>
-      <input type="text" id="descricao" name="descricao"><br>
+      <label for="id">Produto:</label><br>
+      <select id="id" name="idProduto">
+        <% for(var i=0; i < produtos.length; i++) { %>
+          <option value="<%= produtos[i].ID %>">
+            <%= produtos[i].DESCRICAO %>
+          </option>
+        <% } %>
+      </select>
     </p>
     <p>
-      <label for="preco">Preço do Produto:</label><br>
-      <input type="flout" id="preco" name="preco"><br>
+      <label for="quantidade">Quantidade:</label><br>
+      <input type="number" min="0" id="quantidade" name="quantidade" required><br>
+    </p>
+    <p>
+      <label for="tipo">Tipo de Movimentação:</label><br>
+      <select id="tipo" name="tipo">
+          <option value="ENTRADA">Entrada</option>
+          <option value="SAIDA">Saída</option>
+      </select>
     </p>
     <input type="submit" value="Submeter">
   </form>

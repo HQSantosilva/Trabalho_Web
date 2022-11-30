@@ -52,7 +52,7 @@
     </p>
     <p>
       <label for="quantidade">Informe a nova quantidade da movimentação:</label><br>
-      <input type="text" id="quantidade" name="quantidade" value="<%= movimentacao.QUANTIDADE %>" /><br>
+      <input type="number" min="0" id="quantidade" name="quantidade" value="<%= movimentacao.QUANTIDADE %>" /><br>
     </p>
     <input type="submit" value="Submeter">
   </form>

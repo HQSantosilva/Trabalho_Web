@@ -64,6 +64,16 @@ class DBConn {
         return this.db.run(sql, [id], callback);
     }
 
+    deleteEstoque(id, callback) {
+        var sql = 'DELETE FROM ESTOQUE WHERE ID = (?)';
+        return this.db.run(sql, [id], callback);
+    }
+
+    deleteMovimentacao(id, callback) {
+        var sql = 'DELETE FROM MOVIMENTACAO WHERE ID = (?)';
+        return this.db.run(sql, [id], callback);
+    }
+
     findAllEstoques(callback) {
         var sql = 'SELECT ID,IDPRODUTO,QUANTIDADE FROM ESTOQUE';
         return this.db.all(sql, [], callback);

@@ -7,13 +7,13 @@
 </head>
 
 <body>
-  <nav><object width="100%" height="65px" data="../views/menu.ejs"></object></nav>  
+  <nav><object width="100%" height="65px" data="../views/menu.ejs"></object></nav>
   <div class="todosprodutos">
   <h1>
-    Editar Produto
+    Editar Estoque
   </h1>
   <p>
-    <a href="/produtos">Voltar</a>
+    <a href="/estoques">Voltar</a>
   </p>
   <% if (typeof(errors) !="undefined" ) { %>
     <div style="color: red; border: 1px solid red;">
@@ -27,19 +27,12 @@
     </div>
     <% } %>
 
-  <form action="/produtos/<%= produto.id %>" method="POST">
-    <input type="hidden" id="id" name="id" value="<%= produto.id %>" /><br>
+  <form action="/estoques/<%= estoque.ID %>" method="POST">
+    <input type="hidden" name="id" value="<%= estoque.ID %>" /><br>
+    <input type="hidden" name="idProduto" value="<%= estoque.IDPRODUTO %>" />
     <p>
-      <label for="descricao">Informe a nova descrição do produto:</label><br>
-      <input type="text" id="descricao" name="descricao" value="<%= produto.descricao %>" /><br>
-    </p>
-    <p>
-      <label for="preco">Informe o novo preço do Produto:</label><br>
-      <input type="text" id="preco" name="preco" value="<%= produto.preco%>" /><br>
-    </p>
-    <p>
-      <label for="validade">Informe a nova validade do Produto:</label><br>
-      <input type="date" id="validade" name="validade" value="<%= produto.validade %>" /><br>
+      <label for="quantidade">Informe a nova quantia em estoque:</label><br>
+      <input type="number" min="0" id="quantidade" name="quantidade" value="<%= estoque.QUANTIDADE %>" /><br>
     </p>
     <input type="submit" value="Submeter">
   </form>
