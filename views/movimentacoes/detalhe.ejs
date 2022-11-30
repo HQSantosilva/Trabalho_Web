@@ -15,30 +15,31 @@
   </head>
   <body>
     <form action="/movimentacoes/deletar/<%= movimentacao.ID %>" method="post">
-    <div class="todosprodutos">
-    <h1 class="titulo">Movimentação</h1>
-    <p>
-      <a href="/movimentacoes">Voltar</a> |
-      <a href="/movimentacoes/editar/<%= movimentacao.ID %>">Editar</a>
-    </p>
-    <p>
-      <strong>Descrição:</strong> <%= movimentacao.DESCRICAO %>
-    </p>
-    <p>
-      <strong>Quantidade:</strong> <%= movimentacao.QUANTIDADE %>
-    </p>
-    <p>
-      <strong>Tipo:</strong>
-      <% if (movimentacao.ENTRADAOUSAIDA == 1) { %>
-        <span class="verde">Entrada</span>
-      <% } else { %>
-        <span class="vermelho">Saída</span>
-      <% } %>
-    </p>
-    <p>
-        <input type="submit" value="Excluir" />
+      <input type="hidden" name="idProduto" value="<%= movimentacao.IDPRODUTO %>" />
+      <input type="hidden" name="quantidade" value="<%= movimentacao.QUANTIDADE %>" />
+      <input type="hidden" name="entradaSaida" value="<%= movimentacao.ENTRADAOUSAIDA %>" />
+      <div class="todosprodutos">
+      <h1 class="titulo">Movimentação</h1>
+      <p>
+        <a href="/movimentacoes">Voltar</a> |
+        <a href="/movimentacoes/editar/<%= movimentacao.ID %>">Editar</a>
+      </p>
+      <p>
+        <strong>Descrição:</strong> <%= movimentacao.DESCRICAO %>
+      </p>
+      <p>
+        <strong>Quantidade:</strong> <%= movimentacao.QUANTIDADE %>
+      </p>
+      <p>
+        <strong>Tipo:</strong>
+        <% if (movimentacao.ENTRADAOUSAIDA == 1) { %>
+          <span class="verde">Entrada</span>
+        <% } else { %>
+          <span class="vermelho">Saída</span>
+        <% } %>
+      </p>
+      <input type="submit" value="Excluir" />
       </form>
-    </p>
   </div>
   </body>
 </html>

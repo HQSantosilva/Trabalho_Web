@@ -277,4 +277,36 @@ router.get('/editar/:id', function (req, res, next) {
   });
 });
 
+router.post('/deletar/:id', function (req, res, next) {
+  var errors = [];
+  if (req.params.id == "") {
+    errors.push("Id da movimentação não informado.");
+  } else if (req.body.idProduto == "") {
+    errors.push("Id do produto antigo não informado.");
+  } else if (req.body.entradaSaida == "") {
+    errors.push("Id do produto antigo não informado.");
+  } else if (req.body.quantidade == "") {
+    errors.push("Informe uma Quantidade");
+  }
+
+  if (errors.length == 0) {
+    db.deleteMovimentacao(req.params.id, (err, data) => {
+      if (err) next(err)
+      else {
+        db.getEstoqueByIdProduto(req.body.idProduto, (err, data) => {
+          var valorAntigo = +data.QUANTIDADE;
+          var isEntrada = req.body.entradaSaida == '1';
+          var quantiaMovimentacao = req.body.quantidade * (isEntrada? -1 : 1);
+
+          var valorNovo = valorAntigo + quantiaMovimentacao;
+
+          db.updateEstoque(data.ID, req.body.idProduto, valorNovo, () => {
+            res.redirect('/movimentacoes/');
+          })
+        })
+      }
+    });
+  }
+});
+
 module.exports = router;
