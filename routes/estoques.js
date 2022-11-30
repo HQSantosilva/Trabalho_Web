@@ -7,10 +7,21 @@ var db = new DBConn();
 
 //home estoques. */
 router.get('/', function (req, res, next) {
-  db.findAllEstoquesWithProdutos( (err, data) => {
-    if (err) next(err)
-    else res.render('estoques/index', { estoque: data });
-  });
+  if(req.query.pesquisa) {
+    db.findAllEstoquesDescric(req.query.pesquisa, (err, data) => {
+      console.log(data);
+      if (err) next(err)
+      else res.render('estoques/index',
+      {
+        estoque: data
+      });
+    });
+  } else {
+    db.findAllEstoquesWithProdutos( (err, data) => {
+      if (err) next(err)
+      else res.render('estoques/index', { estoque: data });
+    });
+  }
 });
 
 //Chamando novo estoque
