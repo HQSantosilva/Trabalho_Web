@@ -7,22 +7,32 @@ var db = new DBConn();
 
 //home estoques. */
 router.get('/', function (req, res, next) {
-  db.findAllMovimentacoesWithProdutos( (err, data) => {
-    if (err) next(err)
-    else {
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].ENTRADAOUSAIDA == 1) {
-          data[i].cor = 'verde';
-          data[i].acao = 'Entrada';
-        } else {
-          data[i].cor = 'vermelho';
-          data[i].acao = 'Saída';
+  if(req.query.pesquisa) {
+    db.findAllProdutosDescric(req.query.pesquisa, (err, data) => {
+      if (err) next(err)
+      else res.render('movimentacoes/index',
+      {
+        produto: data
+      });
+    });
+  } else {
+    db.findAllMovimentacoesWithProdutos( (err, data) => {
+      if (err) next(err)
+      else {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].ENTRADAOUSAIDA == 1) {
+            data[i].cor = 'verde';
+            data[i].acao = 'Entrada';
+          } else {
+            data[i].cor = 'vermelho';
+            data[i].acao = 'Saída';
+          }
         }
-      }
 
-      res.render('movimentacoes/index', { movimentacao: data });
-    }
-  });
+        res.render('movimentacoes/index', { movimentacao: data });
+      }
+    });
+  }
 });
 
 //Chamando novo estoque
