@@ -5,7 +5,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <nav><object width="100%" height="65px" data="../views/menu.ejs"></object></nav>  
+    <nav><object width="100%" height="65px" data="../views/menu.ejs"></object></nav>
     <h1 class='titulo'>Cadastro de Produtos</h1>
     <div class="pesquisa">
       <div class ='divNovo'>
@@ -14,8 +14,8 @@
       </div>
       <div class= 'divPesquisa'>
         <form action="/produtos/" method="GET">
-          <label for="id" class="pesquisaP">Pesquisa de produto:</label><br>
-          <input type="text" id="id" name="id" value="<%= produto.ID %>" /><br>
+          <label for="pesquisa" class="pesquisaP">Pesquisa de produto:</label><br>
+          <input type="text" id="pesquisa" name="pesquisa" value="<%= produto.ID %>" /><br>
           <input type="submit" value="pesquisar" />
         </form>
       </div>

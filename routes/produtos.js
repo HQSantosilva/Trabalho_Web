@@ -7,10 +7,23 @@ var db = new DBConn();
 
 //home produtos. */
 router.get('/', function (req, res, next) {
-  db.findAllProdutos( (err, data) => {
-    if (err) next(err)
-    else res.render('produtos/index', { produto: data });
-  });
+  console.log(req.query);
+  if(req.query.pesquisa) {
+    db.findAllProdutosDescric(req.query.pesquisa, (err, data) => {
+      if (err) next(err)
+      else if (!data)
+        res.status(404).send('Produto não encontrado.');
+      else res.render('produtos/index',
+      {
+        produto: data
+      });
+    });
+  } else {
+    db.findAllProdutos( (err, data) => {
+      if (err) next(err)
+      else res.render('produtos/index', { produto: data });
+    });
+  }
 });
 
 //Chamando novo produto

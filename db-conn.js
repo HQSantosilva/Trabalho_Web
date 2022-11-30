@@ -41,7 +41,7 @@ class DBConn {
 
     findAllProdutosDescric(descricao, callback) {
         var sql = 'SELECT ID,DESCRICAO,PRECO FROM PRODUTO WHERE DESCRICAO LIKE (?)';
-        return this.db.all(sql, [descricao + '%'], callback);
+        return this.db.all(sql, ['%' + descricao + '%'], callback);
     }
 
     createProduto(descricao,preco, callback) {
