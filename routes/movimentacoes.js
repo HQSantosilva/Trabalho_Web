@@ -81,7 +81,7 @@ router.post('/', function (req, res, next) {
       }
 
       if(!deuErro) {
-        db.createMovimentacao(req.body.idProduto, req.body.quantidade, req.body.tipo, (err, dataInsert) => {
+        db.createMovimentacao(req.body.idProduto, req.body.quantidade, isEntrada, (err, dataInsert) => {
           if (err) next(err)
           else {
             db.getLastInsertRowId((err, dataInsert) => {
