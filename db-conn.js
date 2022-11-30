@@ -49,6 +49,11 @@ class DBConn {
         return this.db.all(sql, ['%' + descricao + '%'], callback);
     }
 
+    findAllMovimentacaoDescric(descricao, callback) {
+        var sql = 'SELECT MOVIMENTACAO.ID, MOVIMENTACAO.IDPRODUTO, MOVIMENTACAO.QUANTIDADE, MOVIMENTACAO.ENTRADAOUSAIDA, PRODUTO.DESCRICAO FROM MOVIMENTACAO INNER JOIN PRODUTO ON MOVIMENTACAO.IDPRODUTO=PRODUTO.ID WHERE PRODUTO.DESCRICAO LIKE (?)';
+        return this.db.all(sql, ['%' + descricao + '%'], callback);
+    }
+
     createProduto(descricao,preco, callback) {
         var sql = 'INSERT INTO PRODUTO (descricao,preco) VALUES ((?),(?))';
         return this.db.run(sql, [descricao,preco], callback);

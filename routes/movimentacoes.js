@@ -8,11 +8,12 @@ var db = new DBConn();
 //home estoques. */
 router.get('/', function (req, res, next) {
   if(req.query.pesquisa) {
-    db.findAllProdutosDescric(req.query.pesquisa, (err, data) => {
+    db.findAllMovimentacaoDescric(req.query.pesquisa, (err, data) => {
+      console.log(data);
       if (err) next(err)
       else res.render('movimentacoes/index',
       {
-        produto: data
+        movimentacao: data
       });
     });
   } else {

@@ -11,6 +11,13 @@
         <p><a href="/movimentacoes/novo">Novo</a></p>
         <p><a href="/">Voltar</a></p>
       </div>
+      <div class= 'divPesquisa'>
+        <form action="/movimentacoes/" method="GET">
+          <label for="pesquisa" class="pesquisaP">Pesquisa de produto:</label><br>
+          <input type="text" id="pesquisa" name="pesquisa" value="<%= movimentacao.ID %>" /><br>
+          <input type="submit" value="pesquisar" />
+        </form>
+      </div>
     </div>
     <div class="todosprodutos">
       <h1>Movimentações</h1>
